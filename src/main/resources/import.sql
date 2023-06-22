@@ -1,0 +1,4 @@
+INSERT INTO `pizzas`(`id`, `price`, `description`, `name`, `photo`) VALUES (1,7,"Pomodoro, mozzarella, basilico","Margherita","https://example.com/pizza1.jpg");
+INSERT INTO `pizzas`(`id`, `price`, `description`, `name`, `photo`) VALUES (2,8,"Pomodoro, mozzarella, funghi","Funghi","https://example.com/pizza2.jpg");
+INSERT INTO `pizzas`(`id`, `price`, `description`, `name`, `photo`) VALUES (3,8,"Pomodoro, mozzarella, salamino piccante","Diavola","https://example.com/pizza3.jpg");
+INSERT INTO `pizzas`(`id`, `price`, `description`, `name`, `photo`) VALUES (4,9,"Pomodoro, mozzarella, acciughe,capperi,olive","Siciliana","https://example.com/pizza4.jpg");
