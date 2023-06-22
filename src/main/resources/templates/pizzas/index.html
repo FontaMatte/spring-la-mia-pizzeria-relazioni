@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Pizzeria</title>
+<head th:insert="~{fragments/resources :: head}">
 </head>
 <body>
 <h1>Benvenuti nella nostra Pizzeria</h1>
-<table>
-    <thead>
+<hr>
+<table class="table">
+    <thead class="thead-dark">
     <tr>
         <th>Nome</th>
         <th>Descrizione</th>
@@ -19,7 +18,7 @@
     <tr th:each="pizza : ${pizzas}">
         <td th:text="${pizza.name}"></td>
         <td th:text="${pizza.description}"></td>
-        <td th:text="${pizza.price}"></td>
+        <td th:text="${pizza.price + ' €'}"></td>
         <td><img th:src="${pizza.photo}" width="100" height="100" alt="Pizza"></td>
     </tr>
     </tbody>
