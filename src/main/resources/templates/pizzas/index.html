@@ -7,6 +7,17 @@
 <div class="container">
     <h1>Le nostre Pizze</h1>
     <hr>
+    <div>
+        <form th:action="@{/pizzas}" method="GET">
+            <div class="input-group">
+                <input type="search" th:value="${searchInput}" class="form-control" placeholder="Search By Name"
+                       name="keyword">
+                <button class="btn btn-outline-secondary" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </form>
+    </div>
     <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -29,7 +40,7 @@
         </tr>
         </tbody>
     </table>
-    <p th:if="${pizzas.isEmpty()}">Nessuna pizza presente</p>
+    <p class="alert alert-info" th:if="${pizzas.isEmpty()}">Nessuna pizza presente</p>
 </div>
 </body>
 </html>
