@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/resources :: head(pageTitle='Dettagli Pizza')}">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<nav th:replace="~{/fragments/navbar :: navbar(current='pizzas')}"></nav>
+<div class="container" th:object="${pizza}">
+    <h1 th:text="*{name}"></h1>
+    <hr>
+    <h2 class="text-muted" th:text="|Descrizione: *{description}|"></h2>
+    <dl>
+        <dd th:text="|Prezzo: *{price} €|"></dd>
+        <img th:src="${pizza.photo}" width="200" height="200" alt="Pizza">
+    </dl>
+</div>
+</body>
+</html>

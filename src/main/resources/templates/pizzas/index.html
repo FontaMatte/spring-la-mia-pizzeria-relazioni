@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:insert="~{fragments/resources :: head(pageTitle='Pizza List')}">
+<head th:insert="~{fragments/resources :: head(pageTitle='Pizzeria')}">
 </head>
 <body>
-<h1>Benvenuti nella nostra Pizzeria</h1>
-<hr>
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th>Nome</th>
-        <th>Descrizione</th>
-        <th>Prezzo</th>
-        <th>Immagine</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="pizza : ${pizzas}">
-        <td th:text="${pizza.name}"></td>
-        <td th:text="${pizza.description}"></td>
-        <td th:text="${pizza.price + ' €'}"></td>
-        <td><img th:src="${pizza.photo}" width="100" height="100" alt="Pizza"></td>
-    </tr>
-    </tbody>
-</table>
-<p th:if="${pizzas.isEmpty()}">Nessuna pizza presente</p>
+<nav th:replace="~{/fragments/navbar :: navbar(current='pizzas')}"></nav>
+<div class="container">
+    <h1>Le nostre Pizze</h1>
+    <hr>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Nome</th>
+            <th>Descrizione</th>
+            <th>Prezzo</th>
+            <th>Immagine</th>
+            <th>Azioni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pizza : ${pizzas}">
+            <td th:text="${pizza.name}"></td>
+            <td th:text="${pizza.description}"></td>
+            <td th:text="${pizza.price + ' €'}"></td>
+            <td><img th:src="${pizza.photo}" width="100" height="100" alt="Pizza"></td>
+            <td>
+                <a th:href="@{|/pizzas/${pizza.id}|}"><i class="fa-solid fa-magnifying-glass"></i></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${pizzas.isEmpty()}">Nessuna pizza presente</p>
+</div>
 </body>
 </html>
