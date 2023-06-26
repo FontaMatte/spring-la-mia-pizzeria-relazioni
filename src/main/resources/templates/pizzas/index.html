@@ -7,17 +7,23 @@
 <div class="container">
     <h1>Le nostre Pizze</h1>
     <hr>
-    <div>
-        <form th:action="@{/pizzas}" method="GET">
-            <div class="input-group">
-                <input type="search" th:value="${searchInput}" class="form-control" placeholder="Search By Name"
-                       name="keyword">
-                <button class="btn btn-outline-secondary" type="submit">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-        </form>
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <!--LINK AGGIUNGI NUOVA PIZZA-->
+        <a class="btn btn-primary" th:href="@{/pizzas/create}">Aggiungi Pizza</a>
+        <!--FORM DI RICERCA-->
+        <div>
+            <form th:action="@{/pizzas}" method="GET">
+                <div class="input-group">
+                    <input type="search" th:value="${searchInput}" class="form-control" placeholder="Cerca per nome..."
+                           name="keyword">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+
     <table class="table">
         <thead class="thead-dark">
         <tr>

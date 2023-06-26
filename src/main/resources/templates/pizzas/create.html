@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:insert="~{fragments/resources :: head(pageTitle='Aggiungi Pizza')}">
+    </head>
+<body>
+<div class="container">
+    <nav th:replace="~{/fragments/navbar :: navbar(current='pizzas')}"></nav>
+    <h1>Aggiungi Pizza</h1>
+    <hr>
+    <!--FORM NUOVA PIZZA-->
+    <form class="row" th:action="@{/pizzas/create}" th:object="${pizza}" method="post" id="pizza-form">
+        <div class="col-6 mt-2">
+            <label class="form-label" for="pizza-name">Nome Pizza</label>
+            <input class="form-control" type="text" id="pizza-name" th:field="*{name}">
+        </div>
+        <div class="col-6 mt-2">
+            <label class="form-label" for="pizza-price">Prezzo Pizza</label>
+            <input class="form-control" type="number" id="pizza-price" th:field="*{price}">
+        </div>
+        <div class="col-12 mt-2">
+            <label class="form-label" for="pizza-description">Descrizione Pizza</label>
+            <textarea class="form-control" id="pizza-description" th:field="*{description}" rows="4"></textarea>
+        </div>
+
+        <div class="col-12 mt-2">
+            <label class="form-label" for="pizza-image">Immagine Pizza</label>
+            <input class="form-control" type="file" id="pizza-image" th:field="*{photo}">
+        </div>
+        <div class="col-12 mt-4">
+            <button class="btn btn-primary" type="submit">Salva</button>
+            <a class="btn btn-primary" th:href="@{/pizzas}">Annulla</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -12,6 +12,7 @@ public class Pizza {
     private Integer id;
     @Column(nullable = false)
     private String name;
+    @Lob
     private String description;
     private String photo;
     @Column(nullable = false)
@@ -38,7 +39,7 @@ public class Pizza {
     }
 
     public void setDescription(String description) {
-        description = description;
+        this.description = description;
     }
 
     public String getPhoto() {
