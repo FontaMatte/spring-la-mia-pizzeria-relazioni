@@ -20,7 +20,7 @@ public class Pizza {
     private String description;
     private String photo;
     @Column(nullable = false)
-    @NotNull(message = "il prezzo e\' obbligatorio")
+    @NotNull(message = "il prezzo e' obbligatorio")
     @DecimalMin(value = "0.01", message = "Il prezzo deve essere maggiore di zero")
     private BigDecimal price;
 
