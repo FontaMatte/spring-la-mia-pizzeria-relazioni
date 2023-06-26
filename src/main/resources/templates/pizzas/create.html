@@ -10,17 +10,36 @@
     <hr>
     <!--FORM NUOVA PIZZA-->
     <form class="row" th:action="@{/pizzas/create}" th:object="${pizza}" method="post" id="pizza-form">
+        <!--ELENCO ERRORI-->
+        <!--        <div th:if="${#fields.hasErrors()}">-->
+        <!--            <ul>-->
+        <!--                <li th:each="err : ${#fields.allErrors()}" th:text="${err}"></li>-->
+        <!--            </ul>-->
+        <!--        </div>-->
         <div class="col-6 mt-2">
-            <label class="form-label" for="pizza-name">Nome Pizza</label>
-            <input class="form-control" type="text" id="pizza-name" th:field="*{name}">
+            <label class="form-label" for="pizza-name">Nome Pizza *</label>
+            <input class="form-control" type="text" id="pizza-name" th:field="*{name}" th:errorClass="is-invalid"
+                   required maxlength="255">
+            <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                <ul>
+                    <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                </ul>
+            </div>
         </div>
         <div class="col-6 mt-2">
-            <label class="form-label" for="pizza-price">Prezzo Pizza</label>
-            <input class="form-control" type="number" id="pizza-price" th:field="*{price}">
+            <label class="form-label" for="pizza-price">Prezzo Pizza *</label>
+            <input class="form-control" type="number" id="pizza-price" th:field="*{price}" th:errorClass="is-invalid"
+                   required>
+            <div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
+                <ul>
+                    <li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
+                </ul>
+            </div>
         </div>
         <div class="col-12 mt-2">
             <label class="form-label" for="pizza-description">Descrizione Pizza</label>
-            <textarea class="form-control" id="pizza-description" th:field="*{description}" rows="4"></textarea>
+            <textarea class="form-control" id="pizza-description" th:field="*{description}" rows="4" required
+                      maxlength="255"></textarea>
         </div>
 
         <div class="col-12 mt-2">
