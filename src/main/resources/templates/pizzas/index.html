@@ -4,6 +4,7 @@
 </head>
 <body>
 <nav th:replace="~{/fragments/navbar :: navbar(current='pizzas')}"></nav>
+<div th:if="${message != null}" class="alert alert-success alert-dismissible fade show" th:text="${message}"></div>
 <div class="container">
     <h1>Le nostre Pizze</h1>
     <hr>
@@ -40,8 +41,17 @@
             <td th:text="${pizza.description}"></td>
             <td th:text="${pizza.price + ' €'}"></td>
             <td><img th:src="${pizza.photo}" width="100" height="100" alt="Pizza"></td>
-            <td>
-                <a th:href="@{|/pizzas/${pizza.id}|}"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <!--            ACTIONS-->
+            <td class="d-flex align-items-center">
+                <a class="btn btn-primary me-1" th:href="@{|/pizzas/${pizza.id}|}">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </a>
+                <a class="btn btn-primary me-1" th:href="@{|/pizzas/edit/${pizza.id}|}">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <form th:action="@{|/pizzas/delete/${pizza.id}|}" method="post">
+                    <button class="btn btn-primary" type="submit"><i class="fa-solid fa-trash"></i></button>
+                </form>
             </td>
         </tr>
         </tbody>

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +54,7 @@ public class PizzaController {
         }
     }
 
+    // CREATE METHODS
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
@@ -67,4 +69,47 @@ public class PizzaController {
         pizzaRepository.save(formPizza);
         return "redirect:/pizzas";
     }
+
+    // UPDATE METHODS
+    @GetMapping("/edit/{id}")
+    public String edit(
+            @PathVariable("id") Integer id, Model model) {
+        // controllo se la pizza con quell' id esiste
+        Pizza pizza = getPizzaById(id);
+        model.addAttribute("pizza", pizza);
+        return "/pizzas/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(
+            @PathVariable Integer id,
+            @Valid @ModelAttribute("pizza") Pizza formPizza,
+            BindingResult bindingResult, Model model) {
+        Pizza pizzaToEdit = getPizzaById(id); // vecchia versione della pizza
+        formPizza.setId(pizzaToEdit.getId()); // nuova versione della Pizza
+        // salvo i dati
+        pizzaRepository.save(formPizza);
+        return "redirect:/pizzas";
+    }
+
+    // DELETE METHOD
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+        Pizza pizzaToDelete = getPizzaById(id);
+        pizzaRepository.delete(pizzaToDelete);
+        // aggiungo messaggio di successo
+        redirectAttributes.addFlashAttribute("message", "Pizza " + pizzaToDelete.getName() + " deleted!");
+        return "redirect:/pizzas";
+    }
+
+    // PRIVATE METHODS
+    // metodo che verifica se la pizza con quell' id esiste
+    private Pizza getPizzaById(Integer id) {
+        Optional<Pizza> result = pizzaRepository.findById(id);
+        if (result.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id" + id + "not found");
+        }
+        return result.get();
+    }
+
 }
