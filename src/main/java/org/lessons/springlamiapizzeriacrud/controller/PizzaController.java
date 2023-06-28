@@ -44,14 +44,17 @@ public class PizzaController {
 
     @GetMapping("/{id}")
     public String detail(@PathVariable("id") Integer pizzaId, Model model) {
-        Optional<Pizza> result = pizzaRepository.findById(pizzaId);
-        if (result.isPresent()) {
-            model.addAttribute("pizza", result.get());
-            return "/pizzas/detail";
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    "Pizza with id " + pizzaId + " not found");
-        }
+//        Optional<Pizza> result = pizzaRepository.findById(pizzaId);
+//        if (result.isPresent()) {
+//            model.addAttribute("pizza", result.get());
+//            return "/pizzas/detail";
+//        } else {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+//                    "Pizza with id " + pizzaId + " not found");
+//        }
+        Pizza pizza = getPizzaById(pizzaId);
+        model.addAttribute("pizza", pizza);
+        return "/pizzas/detail";
     }
 
     // CREATE METHODS
@@ -86,6 +89,11 @@ public class PizzaController {
             @Valid @ModelAttribute("pizza") Pizza formPizza,
             BindingResult bindingResult, Model model) {
         Pizza pizzaToEdit = getPizzaById(id); // vecchia versione della pizza
+        // controllo se si sono verificati errori nella compilazione del form
+        if (bindingResult.hasErrors()) {
+            return "/pizzas/edit";
+        }
+        // trasferisco su formPizza ttui i valori dei campi che non sono  presenti nel form
         formPizza.setId(pizzaToEdit.getId()); // nuova versione della Pizza
         // salvo i dati
         pizzaRepository.save(formPizza);
