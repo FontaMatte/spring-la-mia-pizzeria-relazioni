@@ -58,13 +58,13 @@ public class PizzaController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
-        return "/pizzas/create";
+        return "/pizzas/edit";
     }
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/pizzas/create";
+            return "/pizzas/edit";
         }
         pizzaRepository.save(formPizza);
         return "redirect:/pizzas";

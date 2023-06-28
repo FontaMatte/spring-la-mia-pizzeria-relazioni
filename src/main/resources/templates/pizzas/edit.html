@@ -1,15 +1,20 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <head th:insert="~{fragments/resources :: head(pageTitle='Modifica Pizza')}">
+    <head th:insert="~{fragments/resources :: head(pageTitle='Pizza Form')}">
     </head>
 <body th:with="isEdit=${pizza.id != null}">
 <div class="container">
     <nav th:replace="~{/fragments/navbar :: navbar(current='pizzas')}"></nav>
-    <h1>Modifica Pizza: <span th:text="${pizza.name}"></span></h1>
+    <h1 th:text="${isEdit ? 'Modifica Pizza' : 'Aggiungi Pizza'}"></h1>
     <hr>
     <!--FORM NUOVA PIZZA-->
-    <form class="row" th:action="@{/pizzas/edit}" th:object="${pizza}" method="post" id="pizza-form">
+    <form class="row"
+          th:with="formAction=${isEdit ? '/pizzas/edit/' + pizza.id : '/pizzas/create'}"
+          th:action="@{${formAction}}"
+          th:object="${pizza}"
+          method="post"
+          id="pizza-form">
         <div class="col-6 mt-2">
             <label class="form-label" for="pizza-name">Nome Pizza</label>
             <input class="form-control" type="text" id="pizza-name" th:field="*{name}" th:errorClass="is-invalid"
