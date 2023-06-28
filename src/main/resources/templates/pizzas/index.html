@@ -4,8 +4,12 @@
 </head>
 <body>
 <nav th:replace="~{/fragments/navbar :: navbar(current='pizzas')}"></nav>
-<div th:if="${message != null}" class="alert alert-success alert-dismissible fade show" th:text="${message}"></div>
+
 <div class="container">
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show">
+        <span th:text="${message}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <h1>Le nostre Pizze</h1>
     <hr>
     <div class="d-flex justify-content-between align-items-center my-3">
