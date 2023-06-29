@@ -1,6 +1,8 @@
 package org.lessons.springlamiapizzeriacrud.controller;
 
 import jakarta.validation.Valid;
+import org.lessons.springlamiapizzeriacrud.messages.AlertMessage;
+import org.lessons.springlamiapizzeriacrud.messages.AlertMessageType;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
 import org.lessons.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +95,7 @@ public class PizzaController {
         if (bindingResult.hasErrors()) {
             return "/pizzas/edit";
         }
-        // trasferisco su formPizza ttui i valori dei campi che non sono  presenti nel form
+        // trasferisco su formPizza tutti i valori dei campi che non sono  presenti nel form
         formPizza.setId(pizzaToEdit.getId()); // nuova versione della Pizza
         // salvo i dati
         pizzaRepository.save(formPizza);
@@ -106,7 +108,8 @@ public class PizzaController {
         Pizza pizzaToDelete = getPizzaById(id);
         pizzaRepository.delete(pizzaToDelete);
         // aggiungo messaggio di successo
-        redirectAttributes.addFlashAttribute("message", "Pizza " + pizzaToDelete.getName() + " deleted!");
+        redirectAttributes.addFlashAttribute("message", new AlertMessage(AlertMessageType.SUCCESS,
+                "pizza " + pizzaToDelete.getName() + " deleted!"));
         return "redirect:/pizzas";
     }
 
