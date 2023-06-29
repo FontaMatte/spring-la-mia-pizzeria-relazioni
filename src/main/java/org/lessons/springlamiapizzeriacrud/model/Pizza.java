@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "pizzas")
@@ -23,6 +24,9 @@ public class Pizza {
     @NotNull(message = "il prezzo e' obbligatorio")
     @DecimalMin(value = "0.01", message = "Il prezzo deve essere maggiore di zero")
     private BigDecimal price;
+
+    @OneToMany(mappedBy = "pizza")
+    private List<SpecialOffer> specialOffers;
 
     public Integer getId() {
         return id;
@@ -62,5 +66,13 @@ public class Pizza {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public List<SpecialOffer> getSpecialOffers() {
+        return specialOffers;
+    }
+
+    public void setSpecialOffers(List<SpecialOffer> specialOffers) {
+        this.specialOffers = specialOffers;
     }
 }
