@@ -15,7 +15,14 @@
                     th:each="ingridient : ${ingridients}"
                     th:object="${ingridient}"
                 >
-                    <h4 th:text="*{name}"></h4>
+                    <div>
+                        <h4 th:text="*{name}"></h4>
+                    </div>
+                    <div>
+                        <a th:href="@{/ingridients(edit=*{id})}" class="btn btn-primary">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </div>
                 </li>
             </ul>
             <div class="alert alert-info" th:unless="${ingridients.size > 0}">
@@ -30,6 +37,7 @@
                     method="post"
                     th:object="${ingridientObj}"
             >
+                <input type="hidden" th:field="*{id}">
                 <div class="mb-2">
                     <label class="form-label" for="ingridients-name">Nome Ingrediente</label>
                     <input class="form-control" type="text" id="ingridients-name" th:field="*{name}"
