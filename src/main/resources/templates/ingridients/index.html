@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <head th:insert="~{fragments/resources :: head(pageTitle='Ingredienti')}"></head>
+</head>
+<body>
+<nav th:replace="~{/fragments/navbar :: navbar(current='ingridients')}"></nav>
+<div class="container">
+    <h1>Ingredienti</h1>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <ul class="list-group" th:if="${ingridients.size > 0}">
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    th:each="ingridient : ${ingridients}"
+                    th:object="${ingridient}"
+                >
+                    <h4 th:text="*{name}"></h4>
+                </li>
+            </ul>
+            <div class="alert alert-info" th:unless="${ingridients.size > 0}">
+                Nessun Ingrediente
+            </div>
+        </div>
+        <div class="col-6">
+            <form
+                    th:action="@{/ingridients/save}"
+                    id="ingridient-form"
+                    method="post"
+                    th:object="${ingridientObj}"
+            >
+                <div class="mb-2">
+                    <label class="form-label" for="ingridients-name">Nome Ingrediente</label>
+                    <input class="form-control" type="text" id="ingridients-name" th:field="*{name}"
+                           th:errorClass="is-invalid"
+                           required>
+                    <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
