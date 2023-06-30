@@ -65,4 +65,14 @@ public class SpecialOfferController {
         specialOfferRepository.save(formSpecialOffer);
         return "redirect:/pizzas/" + formSpecialOffer.getPizza().getId();
     }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        Optional<SpecialOffer> specialOfferToDelet = specialOfferRepository.findById(id);
+        if (specialOfferToDelet.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        specialOfferRepository.delete(specialOfferToDelet.get());
+        return "redirect:/pizzas/" + specialOfferToDelet.get().getPizza().getId();
+    }
 }
