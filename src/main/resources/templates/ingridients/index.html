@@ -18,10 +18,15 @@
                     <div>
                         <h4 th:text="*{name}"></h4>
                     </div>
-                    <div>
-                        <a th:href="@{/ingridients(edit=*{id})}" class="btn btn-primary">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a th:href="@{/ingridients(edit=*{id})}" class="btn btn-primary me-2">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
+                        <form th:action="@{|/ingridients/delete/*{id}|}"
+                              method="post"
+                        >
+                            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-trash"></i></button>
+                        </form>
                     </div>
                 </li>
             </ul>

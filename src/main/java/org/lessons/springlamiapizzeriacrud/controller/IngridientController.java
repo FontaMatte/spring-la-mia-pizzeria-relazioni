@@ -47,4 +47,10 @@ public class IngridientController {
         ingridientRepository.save(formIngridient);
         return "redirect:/ingridients";
     }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        ingridientRepository.deleteById(id);
+        return "redirect:/ingridients";
+    }
 }
