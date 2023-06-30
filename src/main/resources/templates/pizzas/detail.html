@@ -34,6 +34,7 @@
                 <th>Offerta</th>
                 <th>Data Inizio</th>
                 <th>Data Fine</th>
+                <th>Azioni</th>
             </tr>
             </thead>
             <tbody>
@@ -41,6 +42,16 @@
                 <td th:text="*{title}"></td>
                 <td th:text="*{#temporals.format(startDate, 'dd/MM/yyyy')}"></td>
                 <td th:text="*{#temporals.format(endDate, 'dd/MM/yyyy')}"></td>
+                <td class="d-flex align-items-center">
+                    <a class="btn btn-primary me-2" th:href="@{|/specialOffers/edit/*{id}|}">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                    <form th:action="@{|/specialOffers/delete/*{id}|}"
+                          method="post"
+                    >
+                        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
