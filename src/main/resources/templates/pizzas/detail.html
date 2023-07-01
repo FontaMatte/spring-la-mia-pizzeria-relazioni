@@ -10,15 +10,25 @@
 <body>
 <nav th:replace="~{/fragments/navbar :: navbar(current='pizzas')}"></nav>
 <div class="container" th:object="${pizza}">
+    <h1 th:text="*{name}"></h1>
+    <hr>
+    <h2 class="text-muted" th:text="|Descrizione: *{description}|"></h2>
+    <section class="row">
+        <div class="col-8">
 
-    <section>
-        <h1 th:text="*{name}"></h1>
-        <hr>
-        <h2 class="text-muted" th:text="|Descrizione: *{description}|"></h2>
-        <dl>
-            <dd th:text="|Prezzo: *{price} €|"></dd>
-            <img th:src="${pizza.photo}" width="200" height="200" alt="Pizza">
-        </dl>
+            <dl>
+                <dd th:text="|Prezzo: *{price} €|"></dd>
+                <img th:src="${pizza.photo}" width="200" height="200" alt="Pizza">
+            </dl>
+        </div>
+        <!--        INGREDIENTI-->
+        <div class="col-4">
+            <h3>Ingredienti</h3>
+            <ul th:if="*{ingridients.size() > 0}">
+                <li th:each="ingridient : *{ingridients}" th:text="${ingridient.name}"></li>
+            </ul>
+            <div th:unless="*{ingridients.size() > 0}" class="alert alert-info">Nessun Ingrediente</div>
+        </div>
     </section>
     <!--     OFFERTE ATTIVE-->
     <section class="mt-5">

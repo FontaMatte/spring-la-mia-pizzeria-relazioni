@@ -28,6 +28,22 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza", cascade = {CascadeType.REMOVE})
     private List<SpecialOffer> specialOffers;
 
+    @ManyToMany
+    @JoinTable(
+            name = "pizza_ingridient",
+            joinColumns = @JoinColumn(name = "pizza_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingridient_id")
+    )
+    private List<Ingridient> ingridients;
+
+    public List<Ingridient> getIngridients() {
+        return ingridients;
+    }
+
+    public void setIngridients(List<Ingridient> ingridients) {
+        this.ingridients = ingridients;
+    }
+
     public Integer getId() {
         return id;
     }

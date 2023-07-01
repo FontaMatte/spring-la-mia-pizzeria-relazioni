@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.lessons.springlamiapizzeriacrud.messages.AlertMessage;
 import org.lessons.springlamiapizzeriacrud.messages.AlertMessageType;
 import org.lessons.springlamiapizzeriacrud.model.Pizza;
+import org.lessons.springlamiapizzeriacrud.repository.IngridientRepository;
 import org.lessons.springlamiapizzeriacrud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ import java.util.Optional;
 public class PizzaController {
     @Autowired
     private PizzaRepository pizzaRepository;
+    @Autowired
+    private IngridientRepository ingridientRepository;
 
 //    @GetMapping
 //    public String index(Model model) {
@@ -63,12 +66,14 @@ public class PizzaController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingridientList", ingridientRepository.findAll());
         return "/pizzas/edit";
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult) {
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingridientList", ingridientRepository.findAll());
             return "/pizzas/edit";
         }
         pizzaRepository.save(formPizza);
@@ -82,6 +87,7 @@ public class PizzaController {
         // controllo se la pizza con quell' id esiste
         Pizza pizza = getPizzaById(id);
         model.addAttribute("pizza", pizza);
+        model.addAttribute("ingridientList", ingridientRepository.findAll());
         return "/pizzas/edit";
     }
 
@@ -93,6 +99,7 @@ public class PizzaController {
         Pizza pizzaToEdit = getPizzaById(id); // vecchia versione della pizza
         // controllo se si sono verificati errori nella compilazione del form
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingridientList", ingridientRepository.findAll());
             return "/pizzas/edit";
         }
         // trasferisco su formPizza tutti i valori dei campi che non sono  presenti nel form
